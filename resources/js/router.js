@@ -11,11 +11,11 @@ export default new VueRouter({
             name: 'main.get'
         },
         {
-            path: '/login', component: () => import('./components/Login'),
+            path: '/user/login', component: () => import('./components/Login'),
             name: 'user.login'
         },
         {
-            path: '/signup', component: () => import('./components/Signup'),
+            path: '/user/signup', component: () => import('./components/Signup'),
             name: 'user.signup'
         }
     ]

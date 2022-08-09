@@ -6,7 +6,21 @@
 
 <script>
 export default {
-    name: "Get"
+    name: "Get",
+    mounted() {
+        this.getSome()
+    },
+    methods: {
+        getSome() {
+            axios.get('/api/get')
+            .then( res => {
+                console.log(res);
+            })
+            .catch( err => {
+                console.log(err.response);
+            })
+        }
+    }
 }
 </script>
 

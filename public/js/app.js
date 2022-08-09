@@ -5328,6 +5328,7 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.withCredentials = true;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -5369,13 +5370,13 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
     },
     name: 'main.get'
   }, {
-    path: '/login',
+    path: '/user/login',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Login_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Login */ "./resources/js/components/Login.vue"));
     },
     name: 'user.login'
   }, {
-    path: '/signup',
+    path: '/user/signup',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Signup_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Signup */ "./resources/js/components/Signup.vue"));
     },

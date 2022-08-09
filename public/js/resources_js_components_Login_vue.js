@@ -17,8 +17,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Login"
+  name: "Login",
+  data: function data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      axios.get('/sanctum/csrf-cookie').then(function (response) {
+        axios.post('/login', {
+          email: _this.email,
+          password: _this.password
+        }).then(function (res) {
+          console.log(res);
+        })["catch"](function (err) {
+          console.log(err.response);
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -107,7 +131,62 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Login\n")])
+  return _c("div", { staticClass: "w-25" }, [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.email,
+          expression: "email",
+        },
+      ],
+      staticClass: "form-control",
+      attrs: { type: "email", placeholder: "email" },
+      domProps: { value: _vm.email },
+      on: {
+        input: function ($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.email = $event.target.value
+        },
+      },
+    }),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.password,
+          expression: "password",
+        },
+      ],
+      staticClass: "form-control",
+      attrs: { type: "password", placeholder: "password" },
+      domProps: { value: _vm.password },
+      on: {
+        input: function ($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.password = $event.target.value
+        },
+      },
+    }),
+    _vm._v(" "),
+    _c("input", {
+      staticClass: "btn btn-primary",
+      attrs: { type: "submit", value: "Login" },
+      on: {
+        click: function ($event) {
+          $event.preventDefault()
+          return _vm.login.apply(null, arguments)
+        },
+      },
+    }),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
