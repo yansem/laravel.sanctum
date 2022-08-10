@@ -43,7 +43,11 @@ __webpack_require__.r(__webpack_exports__);
           password: _this.password,
           password_confirmation: _this.password_confirmation
         }).then(function (res) {
-          console.log(res);
+          localStorage.setItem('access_token', res.config.headers['X-XSRF-TOKEN']);
+
+          _this.$router.push({
+            name: 'user.personal'
+          });
         });
       });
     }

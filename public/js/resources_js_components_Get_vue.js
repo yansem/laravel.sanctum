@@ -26,9 +26,7 @@ __webpack_require__.r(__webpack_exports__);
     getSome: function getSome() {
       axios.get('/api/get').then(function (res) {
         console.log(res);
-      })["catch"](function (err) {
-        console.log(err.response);
-      });
+      })["catch"](function (err) {});
     }
   }
 });

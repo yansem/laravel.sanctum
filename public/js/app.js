@@ -5276,17 +5276,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index",
+  data: function data() {
+    return {
+      accessToken: ''
+    };
+  },
+  updated: function updated() {
+    this.getToken();
+  },
+  mounted: function mounted() {
+    this.getToken();
+  },
   methods: {
     logout: function logout() {
       var _this = this;
 
       axios.post('/logout').then(function (res) {
+        var token = localStorage.getItem('access_token');
+        if (token) localStorage.removeItem('access_token');
+
         _this.$router.push({
           name: 'user.login'
         });
       });
+    },
+    getToken: function getToken() {
+      this.accessToken = localStorage.getItem('access_token');
     }
   }
 });
@@ -5373,7 +5391,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+var route = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
     path: '/get',
@@ -5393,8 +5411,36 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
       return __webpack_require__.e(/*! import() */ "resources_js_components_Signup_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Signup */ "./resources/js/components/Signup.vue"));
     },
     name: 'user.signup'
+  }, {
+    path: '/user/personal',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_components_Personal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Personal */ "./resources/js/components/Personal.vue"));
+    },
+    name: 'user.personal'
   }]
-}));
+});
+route.beforeEach(function (to, from, next) {
+  var accessToken = localStorage.getItem('access_token');
+
+  if (!accessToken) {
+    if (to.name === 'user.login' || to.name === 'user.signup') {
+      return next();
+    } else {
+      return next({
+        name: 'user.login'
+      });
+    }
+  } else {
+    if (to.name === 'user.login' || to.name === 'user.signup') {
+      return next({
+        name: 'user.personal'
+      });
+    }
+  }
+
+  next();
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (route);
 
 /***/ }),
 
@@ -28144,27 +28190,39 @@ var render = function () {
         _vm._v("Get"),
       ]),
       _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "user.login" } } }, [
-        _vm._v("Login"),
-      ]),
+      !_vm.accessToken
+        ? _c("router-link", { attrs: { to: { name: "user.login" } } }, [
+            _vm._v("Login"),
+          ])
+        : _vm._e(),
       _vm._v(" "),
-      _c("router-link", { attrs: { to: { name: "user.signup" } } }, [
-        _vm._v("Signup"),
-      ]),
+      !_vm.accessToken
+        ? _c("router-link", { attrs: { to: { name: "user.signup" } } }, [
+            _vm._v("Signup"),
+          ])
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "a",
-        {
-          attrs: { href: "#" },
-          on: {
-            click: function ($event) {
-              $event.preventDefault()
-              return _vm.logout.apply(null, arguments)
+      _vm.accessToken
+        ? _c("router-link", { attrs: { to: { name: "user.personal" } } }, [
+            _vm._v("Personal"),
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.accessToken
+        ? _c(
+            "a",
+            {
+              attrs: { href: "#" },
+              on: {
+                click: function ($event) {
+                  $event.preventDefault()
+                  return _vm.logout.apply(null, arguments)
+                },
+              },
             },
-          },
-        },
-        [_vm._v("Logout")]
-      ),
+            [_vm._v("Logout")]
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("router-view"),
     ],
@@ -43436,7 +43494,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_Get_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_Signup_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_Get_vue":1,"resources_js_components_Login_vue":1,"resources_js_components_Signup_vue":1,"resources_js_components_Personal_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

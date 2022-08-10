@@ -36,10 +36,12 @@ __webpack_require__.r(__webpack_exports__);
           email: _this.email,
           password: _this.password
         }).then(function (res) {
-          console.log(res);
-        })["catch"](function (err) {
-          console.log(err.response);
-        });
+          localStorage.setItem('access_token', res.config.headers['X-XSRF-TOKEN']);
+
+          _this.$router.push({
+            name: 'user.personal'
+          });
+        })["catch"](function (err) {});
       });
     }
   }

@@ -17,7 +17,7 @@ export default {
                 console.log(res);
             })
             .catch( err => {
-                console.log(err.response);
+
             })
         }
     }
